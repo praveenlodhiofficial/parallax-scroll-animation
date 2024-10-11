@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect} from 'react'
 import styles from './page.module.scss'
 import Image from 'next/image'
 import { useTransform, useScroll, motion, MotionValue } from 'framer-motion'

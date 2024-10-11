@@ -3,7 +3,7 @@
 import React, { useRef, useEffect, useState } from 'react'
 import styles from './page.module.scss'
 import Image from 'next/image'
-import { useTransform, useScroll, motion } from 'framer-motion'
+import { useTransform, useScroll, motion, MotionValue } from 'framer-motion'
 import useDimension from '@/useDimension';
 import Lenis from '@studio-freight/lenis'
 
@@ -24,20 +24,18 @@ const images: string[] = [
 
 interface ColumnProps {
   images: string[];
-  y: any; // Type for the motion transform value
+  y: MotionValue<number>; // Changed to MotionValue<number>
 }
 
 export default function Home() {
   const { height } = useDimension();
   const gallery = useRef<HTMLDivElement | null>(null);
-  const [dimension, setDimension] = useState({ width: 0, height: 0 });
 
   const { scrollYProgress } = useScroll({
     target: gallery,
     offset: ['start end', 'end start']
   });
  
-  // const { height } = dimension;
   const y = useTransform(scrollYProgress, [0, 1], [0, height * 2]);
   const y2 = useTransform(scrollYProgress, [0, 1], [0, height * 3.3]);
   const y3 = useTransform(scrollYProgress, [0, 1], [0, height * 1.25]);
@@ -52,7 +50,7 @@ export default function Home() {
     };
 
     const resize = () => {
-      setDimension({ width: window.innerWidth, height: window.innerHeight });
+      // Use height from useDimension here if needed
     };
 
     window.addEventListener("resize", resize);
@@ -66,7 +64,7 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-<div className={`${styles.spacer} font-semibold text-7xl text-center justify-center p-[18%] bg-black text-white`}> Image Slider</div>
+      <div className={`${styles.spacer} font-semibold text-7xl text-center justify-center p-[18%] bg-black text-white`}> Image Slider</div>
       <div ref={gallery} className={styles.gallery}>
         <Column images={[images[0], images[1], images[2]]} y={y} />
         <Column images={[images[3], images[4], images[5]]} y={y2} />

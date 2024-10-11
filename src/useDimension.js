@@ -1,4 +1,4 @@
-const { useEffect, useState } = require("react");
+import { useEffect, useState } from "react";
 
 const useDimension = () => {
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
